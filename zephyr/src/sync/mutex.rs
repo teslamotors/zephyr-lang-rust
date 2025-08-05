@@ -60,7 +60,7 @@ impl<T> fmt::Debug for Mutex<T> {
     }
 }
 
-/// An RAII implementation of a "scoped lock" of a mutex.  When this structure is dropped (faslls
+/// An RAII implementation of a "scoped lock" of a mutex.  When this structure is dropped (falls
 /// out of scope), the lock will be unlocked.
 ///
 /// The data protected by the mutex can be accessed through this guard via its [`Deref`] and
