@@ -35,6 +35,7 @@ compile_error!("Rust does not (yet) support dynamic frequency timer");
 
 // Given the above not defined, the system time base comes from a kconfig.
 /// The system time base.  The system clock has this many ticks per second.
+/// This is typically 1000 Hz for most Zephyr configurations.
 pub const SYS_FREQUENCY: u32 = crate::kconfig::CONFIG_SYS_CLOCK_TICKS_PER_SEC as u32;
 
 /// Zephyr can be configured for either 64-bit or 32-bit time values.  Use the appropriate type

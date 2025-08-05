@@ -26,7 +26,13 @@ impl core::error::Error for Error {}
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "zephyr error errno:{}", self.0)
+        
+        let error_name = match self.0 {
+            1 => "EPERM", 2 => "ENOENT", 3 => "ESRCH", 4 => "EINTR", 5 => "EIO",
+            11 => "EAGAIN", 12 => "ENOMEM", 13 => "EACCES", 16 => "EBUSY", 22 => "EINVAL",
+            _ => "Unknown",
+        };
+        write!(f, "Zephyr error: {} (errno:{})", error_name, self.0)
     }
 }
 
@@ -53,4 +59,9 @@ pub fn to_result(code: c_int) -> Result<c_int> {
 /// Map a return result, with a void result.
 pub fn to_result_void(code: c_int) -> Result<()> {
     to_result(code).map(|_| ())
+}
+
+/// Check if a return code indicates success (>= 0)
+pub fn is_success(code: c_int) -> bool {
+    code >= 0
 }
